@@ -9,9 +9,6 @@ public class PacienteList {
     private Paciente primerPaciente = null;
     private Paciente ultimoPaciente = null;
 
-    private ConsultaMedicaList consultaMedicaList = new ConsultaMedicaList();
-    private EmergenciaList emergenciaList = new EmergenciaList();
-
     public PacienteList() {
     }
 
@@ -126,6 +123,53 @@ public class PacienteList {
         } else {
             System.out.println("No hay pacientes para atender.");
         }
+    }
+
+    public void eliminarPaciente(Scanner entrada) {
+        Paciente aux = primerPaciente;
+        Paciente lstPaciente = null;
+        Scanner scn = new Scanner(System.in);
+        boolean exists = false;
+        System.out.println("Ingrese el ID del paciente que desea eliminar: ");
+        int id = scn.nextInt();
+        if (primerPaciente != null) {
+            while (aux != null && !exists) {
+                if (aux.getId_paciente() == id) {
+                    if (aux == primerPaciente) {
+                        primerPaciente = primerPaciente.getSiguiente();
+                    } else if (aux == ultimoPaciente) {
+                        lstPaciente.setSiguiente(null);
+                        ultimoPaciente = lstPaciente.getSiguiente();
+                    } else {
+                        lstPaciente.setSiguiente(aux.getSiguiente());
+                    }
+                    System.out.println("El paciente fue correctamente eliminado");
+                    exists = true;
+                }
+                lstPaciente = aux;
+                aux = aux.getSiguiente();
+            }
+            if (!exists) {
+                System.out.println("No existe ningun paciente con ese ID en la lista");
+
+            }
+        } else {
+            System.out.println("No existen elementos para eliminar en la lista.");
+        }
+    }
+
+    public int cantidadPacientes() {
+        int size = 0;
+        Paciente aux = primerPaciente;
+        if (primerPaciente != null) {
+            while (aux != null) {
+                size++;
+                aux = aux.getSiguiente();
+            }
+        } else {
+            System.out.println("No se han registrado pacientes.");
+        }
+        return size;
     }
 
 }
