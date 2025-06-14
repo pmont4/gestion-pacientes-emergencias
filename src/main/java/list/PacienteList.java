@@ -119,4 +119,13 @@ public class PacienteList {
         return null;
     }
 
+    public void showBooks() {
+        if (primerPaciente != null) {
+            emergenciaList.mostrarPacientes();
+            consultaMedicaList.mostrarPacientes();
+        } else {
+            System.out.println("No se han registrado pacientes.");
+        }
+    }
+
 }
