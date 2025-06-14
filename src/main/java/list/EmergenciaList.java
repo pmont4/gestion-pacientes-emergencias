@@ -28,4 +28,27 @@ public class EmergenciaList {
         }
     }
 
+    public int sizeLista() {
+        Paciente aux = primerPaciente;
+        int size = 0;
+
+        if (primerPaciente != null) {
+            while (aux != null) {
+                size++;
+                aux = aux.getSiguiente();
+            }
+        }
+
+        return size;
+    }
+
+    public void atender() {
+        if (primerPaciente != null) {
+            System.out.println("Se atendera ahora al paciente: " + primerPaciente.getNombre_paciente());
+            primerPaciente = primerPaciente.getSiguiente();
+        } else {
+            System.out.println("No se han encontrado paciente para atender.");
+        }
+    }
+
 }

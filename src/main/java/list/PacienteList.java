@@ -119,12 +119,26 @@ public class PacienteList {
         return null;
     }
 
-    public void showBooks() {
+    public void mostrarPacientes() {
         if (primerPaciente != null) {
             emergenciaList.mostrarPacientes();
             consultaMedicaList.mostrarPacientes();
         } else {
             System.out.println("No se han registrado pacientes.");
+        }
+    }
+
+    public void atenderPaciente() {
+        if (primerPaciente != null) {
+            if (emergenciaList.sizeLista() > 0) {
+                emergenciaList.atender();
+            } else if (consultaMedicaList.sizeLista() > 0) {
+                consultaMedicaList.atender();
+            } else {
+                System.out.println("Ya no quedan pacientes por atender.");
+            }
+        } else {
+            System.out.println("No hay pacientes para atender.");
         }
     }
 
