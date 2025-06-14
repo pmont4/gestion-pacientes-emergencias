@@ -22,7 +22,7 @@ public class EmergenciaList {
         Paciente aux = primerPaciente;
         if (primerPaciente != null) {
             while (aux != null) {
-                System.out.println("ID paciente: " + aux.getId_paciente() + "\nNombre: " + aux.getNombre_paciente() + "\nNivel de urgencia: " + aux.getNivel_urgencia() + "\nHora de llegada" + aux.getHora_llegada());
+                System.out.println("ID paciente: " + aux.getId_paciente() + "\nNombre: " + aux.getNombre_paciente() + "\nNivel de urgencia: " + aux.getNivel_urgencia() + "\nHora de llegada: " + aux.getHora_llegada());
                 aux = aux.getSiguiente();
             }
         }

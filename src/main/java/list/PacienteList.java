@@ -24,7 +24,7 @@ public class PacienteList {
 
             System.out.println("Ingrese el nombre del paciente: ");
             try {
-                String nombre = entrada.nextLine();
+                String nombre = entrada.next();
                 if (!nombre.isEmpty()) {
                     paciente.setNombre_paciente(nombre);
                 } else {
@@ -54,17 +54,18 @@ public class PacienteList {
 
             System.out.println("Ingrese la hora de llegada en el siguiente formato HH:mm");
             try {
-                String hora = entrada.nextLine();
+                String hora = entrada.next();
                 if (hora.contains(":")) {
                     String[] split = hora.split(":");
-                    if (split[0].length() <= 1) {
-                        if (split[1].length() <= 1) {
+                    if (split[0].length() == 2) {
+                        if (split[1].length() == 2) {
                             paciente.setHora_llegada(hora);
                         } else {
                             System.out.println("Formato de minutos ingresado no es valido.");
                             return;
                         }
                     } else {
+                        System.out.println(split[0].length());
                         System.out.println("Formato de horas ingresado no es valido.");
                         return;
                     }
@@ -82,19 +83,6 @@ public class PacienteList {
                 paciente.setSiguiente(null);
             }
             ultimoPaciente = paciente;
-
-            switch (paciente.getNivel_urgencia()) {
-                case 1: {
-                    consultaMedicaList.insertarPaciente(paciente);
-                    System.out.println("Paciente correctamente agregado, corresponde a un nivel de urgencia de consulta.");
-                    break;
-                }
-                case 5: {
-                    emergenciaList.insertarPaciente(paciente);
-                    System.out.println("Paciente correctamente agregado, corresponde a un nivel de urgencia de emergencia.");
-                    break;
-                }
-            }
         } else {
             System.out.println("El paciente con el ID: " + id + " ya existe.");
         }
@@ -120,9 +108,12 @@ public class PacienteList {
     }
 
     public void mostrarPacientes() {
+        Paciente aux = primerPaciente;
         if (primerPaciente != null) {
-            emergenciaList.mostrarPacientes();
-            consultaMedicaList.mostrarPacientes();
+            while (aux != null) {
+                System.out.println("\nID paciente: " + aux.getId_paciente() + "\nNombre: " + aux.getNombre_paciente() + "\nNivel de urgencia: " + aux.getNivel_urgencia() + "\nHora de llegada: " + aux.getHora_llegada());
+                aux = aux.getSiguiente();
+            }
         } else {
             System.out.println("No se han registrado pacientes.");
         }
@@ -130,13 +121,8 @@ public class PacienteList {
 
     public void atenderPaciente() {
         if (primerPaciente != null) {
-            if (emergenciaList.sizeLista() > 0) {
-                emergenciaList.atender();
-            } else if (consultaMedicaList.sizeLista() > 0) {
-                consultaMedicaList.atender();
-            } else {
-                System.out.println("Ya no quedan pacientes por atender.");
-            }
+            System.out.println("Se atendera ahora al paciente: " + primerPaciente.getNombre_paciente());
+            primerPaciente = primerPaciente.getSiguiente();
         } else {
             System.out.println("No hay pacientes para atender.");
         }
